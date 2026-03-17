@@ -93,8 +93,8 @@ export default function Details() {
 
         {!isLoading && !errorMessage && pokemon && (
           <>
-            <View
-              style={[
+            {(() => {
+              const heroCardStyle = StyleSheet.flatten([
                 styles.heroCard,
                 {
                   backgroundColor: withAlpha(
@@ -102,26 +102,38 @@ export default function Details() {
                     "55"
                   ),
                 },
-              ]}
+              ]);
+
+              return (
+            <View
+              style={heroCardStyle}
             >
               <Text style={styles.name}>{pokemon.name}</Text>
               <Text style={styles.meta}>#{pokemon.id}</Text>
               <Image source={{ uri: pokemon.image }} style={styles.heroImage} />
             </View>
+              );
+            })()}
 
             <View style={styles.sectionCard}>
               <Text style={styles.sectionTitle}>Types</Text>
               <View style={styles.typeChipRow}>
                 {pokemon.types.map((entry) => (
-                  <View
-                    key={entry.type.name}
-                    style={[
+                  (() => {
+                    const chipStyle = StyleSheet.flatten([
                       styles.typeChip,
                       { backgroundColor: withAlpha(getTypeColor(entry.type.name), "44") },
-                    ]}
+                    ]);
+
+                    return (
+                  <View
+                    key={entry.type.name}
+                    style={chipStyle}
                   >
                     <Text style={styles.typeChipText}>{entry.type.name}</Text>
                   </View>
+                    );
+                  })()
                 ))}
               </View>
             </View>

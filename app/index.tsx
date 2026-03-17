@@ -106,8 +106,17 @@ export default function Index() {
       renderItem={({ item: pokemon }) => {
         const primaryType = (pokemon.types[0]?.type.name ?? "normal").toLowerCase();
         const cardColor = getTypeColor(primaryType);
+        const cardWrapperStyle = StyleSheet.flatten([
+          styles.cardWrapper,
+          { backgroundColor: cardColor },
+        ]);
+        const pokemonCardStyle = StyleSheet.flatten([
+          styles.pokemonCard,
+          { backgroundColor: cardColor },
+        ]);
+
         return (
-          <View style={[styles.cardWrapper, { backgroundColor: cardColor }]}> 
+          <View style={cardWrapperStyle}>
             <Link
               href={{
                 pathname: "/details",
@@ -115,12 +124,7 @@ export default function Index() {
               }}
               asChild
             >
-              <Pressable
-                style={[
-                  styles.pokemonCard,
-                  { backgroundColor: cardColor },
-                ]}
-              >
+              <Pressable style={pokemonCardStyle}>
                 <Text style={styles.name}>{pokemon.name}</Text>
 
                 <View style={styles.spriteRow}>
